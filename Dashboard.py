@@ -11,25 +11,35 @@ st.title("Meat Production Prediction App")
 # User inputs
 st.header("Input Parameters")
 year = st.number_input("Year", min_value=2023, max_value=2030, step=1)
-country = st.selectbox("Country", ["Ireland", "France", "Germany"])
-meat_item = st.selectbox("Meat Item", ["Chicken", "Beef", "Goat", "Sheep"])
+country = st.selectbox("Country", ["France", "Germany", "Ireland"])
+meat_item = st.selectbox("Meat Item", ["Meat_Cattle", "Meat_Chicken", "Meat_Goat", "Meat_Pig", "Meat_Sheep"])
 import_value = st.number_input("Import Value")
 export_value = st.number_input("Export Value")
 
 # Prepare the input data
 input_data = {
     'Year': [year],
-    'Import': [import_value],
     'Export': [export_value],
-    f'Country_{country}': [1],
-    f'Meat Item_{meat_item}': [1]
+    'Import': [import_value],
+    'Country_France': [0],
+    'Country_Germany': [0],
+    'Country_Ireland': [0],
+    'Item_Meat_Cattle': [0],
+    'Item_Meat_Chicken': [0],
+    'Item_Meat_Goat': [0],
+    'Item_Meat_Pig': [0],
+    'Item_Meat_Sheep': [0]
 }
 
-# Convert to DataFrame and fill missing columns with 0
+# Set the selected country and meat item
+input_data[f'Country_{country}'] = [1]
+input_data[f'Item_{meat_item}'] = [1]
+
+# Convert to DataFrame
 input_df = pd.DataFrame(input_data)
-for col in model.feature_names_in_:
-    if col not in input_df.columns:
-        input_df[col] = 0
+
+# Ensure columns are in the correct order as expected by the model
+input_df = input_df[model.feature_names_in_]
 
 # Predict production
 prediction = model.predict(input_df)[0]
