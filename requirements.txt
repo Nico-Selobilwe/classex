@@ -1,12 +1,8 @@
 joblib
 scikit-learn
 streamlit
-streamlit==1.45.0
-pandas==2.2.3
-numpy==2.2.5
-joblib==1.4.2
-statsmodels==0.14.2
-pmdarima==2.0.3
-scikit-learn==1.6.1
-python-dateutil==2.9.0.post0
-patsy==0.5.6
+statsmodels
+pmdarima
+scikit-learn
+python-dateutil
+patsy
